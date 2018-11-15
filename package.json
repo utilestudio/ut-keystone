@@ -63,6 +63,7 @@
     "mongoose": "4.9.2",
     "morgan": "1.9.0",
     "multer": "0.1.8",
+    "node-sass-middleware": "^0.11.0",
     "numeral": "2.0.6",
     "object-assign": "4.1.1",
     "qs": "4.0.0",
@@ -177,7 +178,7 @@
     "current": "updtr",
     "test-cov": "istanbul cover ./node_modules/mocha/bin/_mocha",
     "posttest-cov": "if [ -n \"$CODECLIMATE_REPO_TOKEN\" ]; then codeclimate-test-reporter < coverage/lcov.info; fi",
-    "clean": "rimraf ./coverage",
+    "clean": "rimraf ./coverage && rimraf ./admin/bundles/js",
     "fields-explorer": "node ./fields/explorer/server.js"
   }
 }
