@@ -15,7 +15,7 @@ export class Lists extends React.Component {
 					const listKey = list.key || key;
 					const href = list.external ? list.path : `${Keystone.adminPath}/${list.path}`;
 					const listData = this.props.listsData[list.path];
-					const isNoCreate = listData ? listData.nocreate : false;
+					const isNoCreate = this.props.noCreate || (listData ? listData.nocreate : false);
 					return (
 						<ListTile
 							key={list.path}
@@ -23,7 +23,7 @@ export class Lists extends React.Component {
 							label={list.label}
 							hideCreateButton={isNoCreate}
 							href={href}
-							count={plural(this.props.counts[listKey], '* Item', '* Items')}
+							count={this.props.counts?plural(this.props.counts[listKey], '* Item', '* Items'):null}
 							spinner={this.props.spinner}
 						/>
 					);

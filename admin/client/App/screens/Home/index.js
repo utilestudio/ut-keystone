@@ -19,6 +19,7 @@ var HomeView = React.createClass({
 	getInitialState () {
 		return {
 			modalIsOpen: true,
+      showOrphaned: false
 		};
 	},
 	// When everything is rendered, start loading the item counts of the lists
@@ -50,39 +51,24 @@ var HomeView = React.createClass({
 							} }}
 						/>
 					)}
-					{/* Render flat nav */}
-					{Keystone.nav.flat ? (
-						<Lists
-							counts={this.props.counts}
-							lists={Keystone.lists}
-							spinner={spinner}
-						/>
-					) : (
-						<div>
-							{/* Render nav with sections */}
-							{Keystone.nav.sections.map((navSection) => {
-								return (
-									<Section key={navSection.key} id={navSection.key} label={navSection.label}>
-										<Lists
-											counts={this.props.counts}
-											lists={navSection.lists}
-											spinner={spinner}
-										/>
-									</Section>
-								);
-							})}
-							{/* Render orphaned lists */}
-							{Keystone.orphanedLists.length ? (
-								<Section label="Other" icon="octicon-database">
-									<Lists
-										counts={this.props.counts}
-										lists={Keystone.orphanedLists}
-										spinner={spinner}
-									/>
-								</Section>
-							) : null}
-						</div>
-					)}
+          {Keystone.singletons.length ? (
+            <Lists
+              lists={Keystone.singletons}
+              spinner={spinner}
+              noCreate={true}
+            />
+          ) : null}
+          <div>
+            <p 
+              style={{cursor: 'pointer', opacity: 0.1, display: 'inline-block'}} 
+              onClick={() => this.setState({showOrphaned: true})}>*</p>
+            {this.state.showOrphaned && Keystone.orphanedLists.length ? (
+              <Lists
+                lists={Keystone.orphanedLists}
+                spinner={spinner}
+              />
+            ) : null}
+          </div>
 				</div>
 			</Container>
 		);

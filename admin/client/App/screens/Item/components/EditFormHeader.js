@@ -49,12 +49,15 @@ export const EditFormHeader = React.createClass({
 		const { data, list } = this.props;
 		const items = data.drilldown ? data.drilldown.items : [];
 
-		let backPath = `${Keystone.adminPath}/${list.path}`;
+    let backPath = Keystone.adminPath;
 		const backStyles = { paddingLeft: 0, paddingRight: 0 };
-		// Link to the list page the user came from
-		if (this.props.listActivePage && this.props.listActivePage > 1) {
-			backPath = `${backPath}?page=${this.props.listActivePage}`;
-		}
+    if(!list.singleton) {
+		  backPath = `${Keystone.adminPath}/${list.path}`;
+      // Link to the list page the user came from
+      if (this.props.listActivePage && this.props.listActivePage > 1) {
+        backPath = `${backPath}?page=${this.props.listActivePage}`;
+      }
+    }
 
 		// return a single back button when no drilldown exists
 		if (!items.length) {
@@ -68,7 +71,7 @@ export const EditFormHeader = React.createClass({
 					to={backPath}
 					variant="link"
 					>
-					{list.plural}
+					{list.singleton?'Home':list.plural}
 				</GlyphButton>
 			);
 		}
