@@ -103,6 +103,12 @@ const MobileNavigation = React.createClass({
 		return (
 			<nav className="MobileNavigation__menu">
 				<div className="MobileNavigation__sections">
+          <MobileSectionItem
+            key={'dashboard'}
+            href={Keystone.adminPath}
+            onClick={this.toggleMenu}>
+            Pages
+          </MobileSectionItem>
 					{this.renderNavigation()}
 				</div>
 			</nav>

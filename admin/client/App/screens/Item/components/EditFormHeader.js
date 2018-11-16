@@ -71,7 +71,7 @@ export const EditFormHeader = React.createClass({
 					to={backPath}
 					variant="link"
 					>
-					{list.singleton?'Home':list.plural}
+					{list.singleton?'Pages':list.plural}
 				</GlyphButton>
 			);
 		}

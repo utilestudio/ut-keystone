@@ -72,16 +72,20 @@ var PrimaryNavigation = React.createClass({
 		// TODO: support navbarLogo from keystone config
 
 		const { brand, currentSectionKey } = this.props;
-		const className = currentSectionKey === 'dashboard' ? 'primary-navbar__brand primary-navbar__item--active' : 'primary-navbar__brand';
+
+    const isActive = currentSectionKey && currentSectionKey === 'dashboard';
+    const className = isActive ? 'primary-navbar__item--active' : null;
 
 		return (
 			<PrimaryNavItem
+        active={isActive}
+        key={currentSectionKey}
 				className={className}
-				label="octicon-home"
-				title={'Dashboard - ' + brand}
+				label="Pages"
+				title={'Pages'}
 				to={Keystone.adminPath}
 			>
-				<span className="octicon octicon-home" />
+        Pages 
 			</PrimaryNavItem>
 		);
 	},
@@ -115,7 +119,7 @@ var PrimaryNavigation = React.createClass({
 
 		return (
 			<nav className="primary-navbar">
-				<Container clearFloatingChildren>
+				<Container clearFloatingChildren style={{paddingLeft:0, paddingRight:0}}>
 					<ul className="app-nav app-nav--primary app-nav--left">
 						{this.renderBrand()}
 						{this.renderNavigation()}
