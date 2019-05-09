@@ -3,15 +3,18 @@ var session = require('../../../../lib/session');
 
 function signin (req, res) {
 	var keystone = req.keystone;
+  /*
 	if (!keystone.security.csrf.validate(req)) {
 		return res.apiError(403, 'invalid csrf');
 	}
+  */
 	if (!req.body.email || !req.body.password) {
 		return res.status(401).json({ error: 'email and password required' });
 	}
 	var User = keystone.list(keystone.get('user model'));
 	var emailRegExp = new RegExp('^' + utils.escapeRegExp(req.body.email) + '$', 'i');
 	User.model.findOne({ email: emailRegExp }).exec(function (err, user) {
+    console.log('FOUND USER!');
 		if (user) {
 			keystone.callHook(user, 'pre:signin', req, function (err) {
 				if (err) return res.status(500).json({ error: 'pre:signin error', detail: err });
@@ -20,6 +23,7 @@ function signin (req, res) {
 						session.signinWithUser(user, req, res, function () {
 							keystone.callHook(user, 'post:signin', req, function (err) {
 								if (err) return res.status(500).json({ error: 'post:signin error', detail: err });
+                console.log('LOGIN SUCCESS');
 								res.json({ success: true, user: user });
 							});
 						});

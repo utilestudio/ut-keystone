@@ -58,8 +58,10 @@ var SigninView = React.createClass({
 			} else {
 				// Redirect to where we came from or to the default admin path
 				if (Keystone.redirect) {
+          console.log('RED 1');
 					top.location.href = Keystone.redirect;
 				} else {
+          console.log('RED 2', this.props.from, Keystone.adminPath);
 					top.location.href = this.props.from ? this.props.from : Keystone.adminPath;
 				}
 			}
@@ -127,6 +129,7 @@ var SigninView = React.createClass({
 				</div>
 				<div className="auth-footer">
 					<span>Powered by </span>
+          <span>TEST!!!</span>
 					<a href="http://keystonejs.com" target="_blank" title="The Node.js CMS and web application platform (new window)">KeystoneJS</a>
 				</div>
 			</div>
